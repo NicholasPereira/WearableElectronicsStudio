@@ -1,0 +1,48 @@
+WearableElectronicsStudio
+=========================
+
+Code Made for third year Wearable Electronics Studio class at OCAD.
+/*
+Thank You Kate! I used most of the code from your book located on 
+page 138.
+
+*/
+int micPin = A5;
+int led = 11;
+int ledTwo = 12;
+int ledThree = 13;
+
+int sampleWindow =50;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(led, OUTPUT);
+  pinMode(ledTwo, OUTPUT);
+  pinMode(ledThree, OUTPUT);
+}
+void loop() {
+  unsigned long startMillis = millis();
+  int amplitude;
+  int amplitudeTwo;
+  int amplitudeThree;
+  int micReading;
+  int maxReading = 0;
+  int minReading = 1024;
+  
+  while(millis() -startMillis < sampleWindow) {
+    micReading = analogRead(micPin);
+    
+    if(micReading > maxReading) {
+      maxReading= micReading;
+    }
+    else if (micReading < minReading) {
+      minReading = micReading;
+    }
+  }
+  amplitude = (maxReading - minReading);
+  amplitude = map(amplitude, 0, 1024, 0, 255);  
+  Serial.println(amplitude);
+  analogWrite(led, amplitude);
+  analogWrite(ledTwo, amplitude);
+  analogWrite(ledThree, amplitude);
+}
