@@ -1,0 +1,38 @@
+/* 
+THIS IS THE SECOND PART OF MY PROJECT
+*/
+
+byte incomingByte;
+int leftPin = 5;
+int rightPin = 6;
+int stopPin = 7;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(leftPin, OUTPUT);
+  pinMode(rightPin, OUTPUT);
+  pinMode(stopPin, OUTPUT);  
+}
+
+void loop() {
+ if (Serial.available()){
+    incomingByte = Serial.read();
+    
+    if(incomingByte == 'R') {
+        digitalWrite(rightPin, HIGH);
+        delay(2000);
+        digitalWrite(rightPin, LOW);
+    }
+    if(incomingByte == 'L') {
+        digitalWrite(leftPin, HIGH);
+        delay(2000);
+        digitalWrite(leftPin, LOW);
+    }
+    if(incomingByte == 'S') {
+        digitalWrite(stopPin, HIGH);
+        delay(2000);
+        digitalWrite(stopPin, LOW);
+    }
+ } 
+  
+}
